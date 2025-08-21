@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Auditor - Learn & Improve Your Code</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-code"></i> Code Auditor</h1>
+                <p>Learn & Improve Your Code</p>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-section="auditor">
+                    <i class="fas fa-search"></i> Code Auditor
+                </button>
+                <button class="nav-btn" data-section="learn">
+                    <i class="fas fa-graduation-cap"></i> Learn Mode
+                </button>
+                <button class="nav-btn" data-section="about">
+                    <i class="fas fa-info-circle"></i> About
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i> <span>Dark Mode</span>
+                </button>
+            </div>
+        </aside>
+        <main class="main-content">
+            <section id="auditor" class="content-section active">
+                <div class="section-header">
+                    <h2>Code Auditor</h2>
+                    <p>Paste your code or upload a file to get instant feedback and learning tips</p>
+                </div>
+                <div class="auditor-container">
+                    <div class="input-area">
+                        <div class="input-header">
+                            <h3>Input Your Code</h3>
+                            <div class="input-controls">
+                                <select id="languageSelect" class="language-select">
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="html">HTML</option>
+                                    <option value="css">CSS</option>
+                                </select>
+                                <button class="btn btn-secondary" id="clearBtn">
+                                    <i class="fas fa-trash"></i> Clear
+                                </button>
+                            </div>
+                        </div>
+                        <div class="file-upload-area">
+                            <input type="file" id="fileInput" accept=".js,.html,.css,.txt" class="file-input">
+                            <label for="fileInput" class="file-label">
+                                <i class="fas fa-upload"></i> <span>Choose a file or drag it here</span>
+                            </label>
+                        </div>
+                        <div class="repo-inputs">
+                            <label for="repoUrlInput" class="repo-label"><i class="fab fa-github"></i> <span>Scan a GitHub repo</span></label>
+                            <div class="repo-row">
+                                <input id="repoUrlInput" type="text" class="repo-input" placeholder="owner/repo or https://github.com/owner/repo [optional: /tree/branch/path]">
+                                <input id="branchInput" type="text" class="repo-input branch" placeholder="branch (optional)">
+                                <button class="btn btn-secondary" id="scanRepoBtn">
+                                    <i class="fas fa-search"></i> Scan GitHub Repo
+                                </button>
+                            </div>
+                            <div class="repo-hint">Public repos only. Optional: include branch/path in the URL. Large folders are filtered.</div>
+                        </div>
+                        <textarea id="codeInput" class="code-textarea" placeholder="Paste your code here...\n\nExample:\nfunction calculateTotal(items) {\n  let total = 0;\n  for(let i = 0; i < items.length; i++) {\n    total += items[i].price;\n  }\n  return total;\n}" spellcheck="false"></textarea>
+                        <button class="btn btn-primary" id="analyzeBtn">
+                            <i class="fas fa-play"></i> Analyze Code
+                        </button>
+                    </div>
+                    <div class="results-area">
+                        <div class="results-header">
+                            <h3>Analysis Results</h3>
+                            <div class="results-controls">
+                                <button class="btn btn-secondary" id="exportBtn" disabled>
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                                <button class="btn btn-secondary" id="coachModeBtn" disabled>
+                                    <i class="fas fa-chalkboard-teacher"></i> Coach Mode
+                                </button>
+                                <button class="btn btn-secondary" id="learnModeBtn" disabled title="Open learn view for all detected issues">
+                                    <i class="fas fa-graduation-cap"></i> Learn
+                                </button>
+                            </div>
+                        </div>
+                        <div class="results-container" id="resultsContainer">
+                            <div class="empty-state">
+                                <i class="fas fa-search"></i>
+                                <h4>Ready to analyze your code?</h4>
+                                <p>Paste your code above and click "Analyze Code" to get started</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="learn" class="content-section">
+                <div class="section-header">
+                    <h2>Learn Mode</h2>
+                    <p>Click on any issue below to learn more about it and see examples</p>
+                </div>
+                <div class="learn-container">
+                    <div class="learn-grid" id="learnGrid"></div>
+                </div>
+            </section>
+            <section id="about" class="content-section">
+                <div class="section-header">
+                    <h2>About Code Auditor</h2>
+                    <p>Your educational coding companion</p>
+                </div>
+                <div class="about-content">
+                    <div class="about-card">
+                        <h3><i class="fas fa-lightbulb"></i> What is Code Auditor?</h3>
+                        <p>Code Auditor is an educational tool designed to help developers learn best practices by analyzing their code and providing constructive feedback. Think of it as having a coding mentor who reviews your work and explains how to improve
+                            it.
+                        </p>
+                    </div>
+                    <div class="about-card">
+                        <h3><i class="fas fa-cogs"></i> How it Works</h3>
+                        <p>Simply paste your JavaScript, HTML, or CSS code into the input area. Our predefined rules will analyze your code for common issues like unused variables, deep nesting, inline styles, and more. Each issue comes with a clear explanation
+                            and educational tip.</p>
+                    </div>
+                    <div class="about-card">
+                        <h3><i class="fas fa-star"></i> Features</h3>
+                        <ul>
+                            <li><strong>Code Analysis:</strong> Detects common coding issues and anti-patterns</li>
+                            <li><strong>Educational Tips:</strong> Learn why issues matter and how to fix them</li>
+                            <li><strong>Learn Mode:</strong> Interactive learning with examples and explanations</li>
+                            <li><strong>Export Results:</strong> Save your analysis for later reference</li>
+                            <li><strong>Dark/Light Mode:</strong> Comfortable viewing in any environment</li>
+                        </ul>
+                    </div>
+                    <div class="about-card">
+                        <h3><i class="fas fa-code"></i> Supported Languages</h3>
+                        <div class="language-badges">
+                            <span class="badge javascript">JavaScript</span>
+                            <span class="badge html">HTML</span>
+                            <span class="badge css">CSS</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="modal" id="learnModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Learning Topic</h3>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+    <div class="modal" id="coachModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="coachTitle">Coach Mode</h3>
+                <button class="modal-close" id="coachClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="coachBody"></div>
+            <div class="modal-footer coach-controls" style="padding: 1rem; display:flex; align-items:center; gap:.5rem; border-top: 1px solid var(--b)">
+                <button class="btn btn-secondary" id="coachPrev"><i class="fas fa-arrow-left"></i> Prev</button>
+                <button class="btn btn-secondary" id="coachNext">Next <i class="fas fa-arrow-right"></i></button>
+                <span id="coachProgress" style="margin-left:auto; color: var(--tm);"></span>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="rules.js"></script>
+</body>
+
+</html>
